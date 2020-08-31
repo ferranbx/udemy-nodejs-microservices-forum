@@ -15,15 +15,15 @@ app.get('/status', (req, res) => {
     })
 })
 
-app.get('/posts/:post_id/comments', (req, res) => {
-    let filteredComments = comments.filter(comment => comment.parent === req.params.post_id) || []
+app.get('/threads/:thread_id/comments', (req, res) => {
+    let filteredComments = comments.filter(comment => comment.parent === req.params.thread_id) || []
     res.status(201).send(filteredComments)
 })
 
-app.post('/posts/:post_id/comments', (req, res) => {
+app.post('/threads/:thread_id/comments', (req, res) => {
     let comment = {
         content: req.body.content,
-        parent: req.params.post_id,
+        parent: req.params.thread_id,
         id: uuidv4()
     }
     comments.push(comment)

@@ -1,12 +1,14 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const { v4: uuidv4 } = require('uuid');
+const cors = require('cors')
+const { v4: uuidv4 } = require('uuid')
 
 const port = 3500
 const threads = []
 const app = express()
 
 app.use(bodyParser.json())
+app.use(cors())
 
 app.get('/status', (req, res) => {
     res.status(201).send({
@@ -20,7 +22,12 @@ app.get('/threads', (req, res) => {
 })
 
 app.post('/threads', (req, res) => {
-    let thread = { title: req.body.content, id: uuidv4() }
+    if (!req.body.title) {
+        es.status(400).send({
+            "message": "Thread title empty or does not exist"
+        })
+    }
+    let thread = { title: req.body.title, id: uuidv4() }
     threads.push(thread)
     res.status(201).send(thread)
 })

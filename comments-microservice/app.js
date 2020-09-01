@@ -1,12 +1,14 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const { v4: uuidv4 } = require('uuid');
+const cors = require('cors')
+const { v4: uuidv4 } = require('uuid')
 
 const port = 4000
 const comments = []
 const app = express()
 
 app.use(bodyParser.json())
+app.use(cors())
 
 app.get('/status', (req, res) => {
     res.status(201).send({

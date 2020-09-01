@@ -23,7 +23,7 @@ app.get('/threads', (req, res) => {
 
 app.post('/threads', (req, res) => {
     if (!req.body.title) {
-        es.status(400).send({
+        return res.status(400).send({
             "message": "Thread title empty or does not exist"
         })
     }
